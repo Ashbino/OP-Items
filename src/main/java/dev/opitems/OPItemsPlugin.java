@@ -21,6 +21,8 @@ public final class OPItemsPlugin extends JavaPlugin implements CommandExecutor, 
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
+        Cfg.init(this);
         Items.init(this);
 
         Bukkit.getPluginManager().registerEvents(new SkeletonStaffListener(this), this);
@@ -42,12 +44,19 @@ public final class OPItemsPlugin extends JavaPlugin implements CommandExecutor, 
             for (Items i : Items.values()) sb.append(i.name().toLowerCase(Locale.ROOT)).append(", ");
             sb.append(SET_ID);
             sender.sendMessage(Component.text(sb.toString(), NamedTextColor.AQUA));
-            sender.sendMessage(Component.text("Usage: /opitems give <item> [player]", NamedTextColor.GRAY));
+            sender.sendMessage(Component.text("Usage: /opitems <give|reload> ...", NamedTextColor.GRAY));
+            return true;
+        }
+
+        if (args[0].equalsIgnoreCase("reload")) {
+            reloadConfig();
+            sender.sendMessage(Component.text(
+                    "OPItems config reloaded. Re-give items to pick up changed item stats.", NamedTextColor.GREEN));
             return true;
         }
 
         if (!args[0].equalsIgnoreCase("give")) {
-            sender.sendMessage(Component.text("Usage: /opitems <list|give> [item] [player]", NamedTextColor.RED));
+            sender.sendMessage(Component.text("Usage: /opitems <list|give|reload>", NamedTextColor.RED));
             return true;
         }
         if (args.length < 2) {
@@ -101,6 +110,7 @@ public final class OPItemsPlugin extends JavaPlugin implements CommandExecutor, 
         if (args.length == 1) {
             out.add("give");
             out.add("list");
+            out.add("reload");
         } else if (args.length == 2 && args[0].equalsIgnoreCase("give")) {
             for (Items i : Items.values()) out.add(i.name().toLowerCase(Locale.ROOT));
             out.add(SET_ID);
