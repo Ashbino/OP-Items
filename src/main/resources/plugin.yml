@@ -1,0 +1,15 @@
+name: OPItems
+version: 1.0.0
+main: dev.opitems.OPItemsPlugin
+api-version: '1.21.11'
+description: Overpowered custom weapons and armor.
+commands:
+  opitems:
+    description: Give yourself or another player OP custom items.
+    usage: /opitems <list|give> [item] [player]
+    aliases: [opi]
+    permission: opitems.give
+permissions:
+  opitems.give:
+    description: Allows spawning custom items.
+    default: op
