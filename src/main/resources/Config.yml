@@ -1,0 +1,118 @@
+# ============================================================
+#  OPItems configuration  -  run /opitems reload after editing
+# ============================================================
+# Ability values (cooldowns, ranges, ability damage, set bonuses) apply instantly on reload.
+# Item stats baked into the item (attack-damage, attack-speed, armor points, health,
+# toughness, enchants) are applied when the item is created, so /opitems give new copies
+# after changing those.
+#
+# Durations are in seconds unless noted. "level" values are 1-based (2 = Speed II);
+# set a level to 0 to turn that effect off.
+
+settings:
+  # Items never lose durability. If false, Unbreaking III + Mending are added instead.
+  unbreakable: true
+  # Give every item the max vanilla level of every useful enchant
+  # (no Thorns, no Curse of Binding / Vanishing).
+  max-enchants: true
+
+# ---------------- Skeleton Staff ----------------
+skeleton-staff:
+  charge-seconds: 3.0
+  cooldown-seconds: 6.0
+  range: 64
+  # Damage multiplier the holder takes while charging.
+  damage-taken-multiplier: 1.5
+  # Also apply the multiplier once the staff is fully charged and waiting to fire.
+  vulnerable-while-ready: false
+  # Damage of the beam. Totems of Undying still trigger.
+  beam-damage: 1000
+  # Strip Resistance from the target first so the beam always lands.
+  ignore-resistance: true
+
+# ---------------- Wither Scythe ----------------
+wither-scythe:
+  attack-damage: 9.0
+  attack-speed: 2.0
+  wither-level: 3
+  wither-seconds: 5
+  lifesteal-percent: 30
+  soul-wave:                  # right-click
+    cooldown-seconds: 10
+    radius: 6
+    damage: 8
+    knockback: 1.2
+
+# ---------------- Thunder Hammer (mace) ----------------
+thunder-hammer:
+  attack-damage: 12.0
+  attack-speed: 1.0
+  lightning:                  # right-click
+    range: 40
+    cooldown-seconds: 6
+    damage: 12
+    radius: 3.5
+    fire-seconds: 5
+  launch:                     # sneak + right-click: rocket yourself where you look
+    enabled: true
+    power: 2.4
+    upward-boost: 0.3
+    cooldown-seconds: 4
+    fall-immunity-seconds: 6  # no fall damage after launching (smash attacks still work)
+  slam:                       # hitting while falling creates a shockwave
+    enabled: true
+    min-fall-distance: 2.0
+    radius: 4
+    damage: 6
+    damage-per-fall-block: 0.5
+    max-fall-bonus: 30        # fall blocks counted for the bonus
+    knockback: 1.0
+
+# ---------------- Blink Blade ----------------
+blink-blade:
+  range: 12
+  cooldown-seconds: 2
+
+# ---------------- Berserker Axe ----------------
+berserker-axe:
+  attack-damage: 11.0
+  attack-speed: 1.0
+  execute:                    # bonus damage to wounded targets
+    health-threshold-percent: 35
+    bonus-damage-percent: 50
+  whirlwind:                  # right-click
+    cooldown-seconds: 8
+    radius: 4.5
+    damage: 10
+    knockback: 0.9
+
+# ---------------- Soul Piercer (spear) ----------------
+# Spears already use right-click for their vanilla charge attack, so this one is all
+# passive. Lunge III (vanilla) gives the dash.
+soul-spear:
+  attack-damage: 10.0
+  attack-speed: 1.6
+  slowness-level: 2
+  slowness-seconds: 3
+  glowing-seconds: 5
+  pierce:                     # a hit also stabs the target behind the first one
+    range: 4
+    damage-percent: 60
+
+# ---------------- Wraith Armor ----------------
+wraith-armor:
+  armor-points:
+    helmet: 3
+    chestplate: 8
+    leggings: 6
+    boots: 3
+  toughness: 4.0
+  health-per-piece: 4.0       # 2 hearts each
+  knockback-resistance: 0.1
+  set-bonus:                  # needs all four pieces
+    damage-reduction-percent: 25
+    no-fall-damage: true
+    speed-level: 2
+    jump-boost-level: 1
+    night-vision: true
+    fire-resistance: true
